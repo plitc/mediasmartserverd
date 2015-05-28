@@ -3,7 +3,14 @@ Description=MediaSmartServer
 After=udev.service
 
 [Service]
+#/ Type=simple
+#/ User=root
+#/ Group=root
 ExecStart=/usr/sbin/mediasmartserverd --activity --update-monitor
+RemainAfterExit=yes
+ExecStop=/usr/bin/killall mediasmartserverd
 
 [Install]
 WantedBy=multi-user.target
+
+# EOF

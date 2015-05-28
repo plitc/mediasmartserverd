@@ -41,30 +41,11 @@ Compiling under Debian 8 (Jessie) with SystemD, requires: apt-get install g++ li
 # compile
 $ make
 $ cp mediasmartserverd /usr/sbin
-```
-cat <<"MEDIASMARTSERVERD"> /lib/systemd/system/mediasmartserverd.service
-[Unit]
-Description=mediasmartserverd
-
-[Service]
-Type=simple
-User=root
-Group=root
-ExecStart=/usr/sbin/mediasmartserverd -D
-RemainAfterExit=yes
-ExecStop=/usr/bin/killall mediasmartserverd
-
-[Install]
-WantedBy=multi-user.target
-
-# EOF
-MEDIASMARTSERVERD
-```
-
+$ cp ./lib/systemd/system/mediasmartserver.service /lib/systemd/system/mediasmartserver.service
 $ systemctl daemon-reload
-$ systemctl enable mediasmartserverd
-$ systemctl start mediasmartserverd
-$ systemctl status mediasmartserverd
+$ systemctl enable mediasmartserver
+$ systemctl start mediasmartserver
+$ systemctl status mediasmartserver
 
 # query help
 $ ./mediasmartserverd --help
