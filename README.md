@@ -36,9 +36,35 @@ mediasmartserverd [-D] [-v] [-V] [--brightness <level>]
 
 Compiling under ubuntu requires g++, libstdc++-dev, libudev-dev, and make
 
+Compiling under Debian 8 (Jessie) with SystemD, requires: apt-get install g++ libstdc++-4.9-dev libudev-dev make
+
 # compile
 $ make
+$ cp mediasmartserverd /usr/sbin
+```
+cat <<"MEDIASMARTSERVERD"> /lib/systemd/system/mediasmartserverd.service
+[Unit]
+Description=mediasmartserverd
 
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/sbin/mediasmartserverd -D
+RemainAfterExit=yes
+ExecStop=/usr/bin/killall mediasmartserverd
+
+[Install]
+WantedBy=multi-user.target
+
+# EOF
+MEDIASMARTSERVERD
+```
+
+$ systemctl daemon-reload
+$ systemctl enable mediasmartserverd
+$ systemctl start mediasmartserverd
+$ systemctl status mediasmartserverd
 
 # query help
 $ ./mediasmartserverd --help
