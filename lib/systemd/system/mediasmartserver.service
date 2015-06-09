@@ -9,6 +9,8 @@ After=udev.service
 ExecStart=/usr/sbin/mediasmartserverd --activity --update-monitor
 RemainAfterExit=yes
 ExecStop=/usr/bin/killall mediasmartserverd
+Restart=on-failure
+RestartForceExitStatus=11
 
 [Install]
 WantedBy=multi-user.target
